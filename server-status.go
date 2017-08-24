@@ -15,6 +15,7 @@ type SsRequest struct {
 }
 
 type SsMiddleware struct {
+	path          string
 	startTimeUnix int64
 	busyWorkers   int64
 	totalAccesses int64
@@ -37,8 +38,8 @@ type ssJsonResponse struct {
 }
 
 // Middleware is a struct that has a ServeHTTP method
-func NewMiddleware() *SsMiddleware {
-	return &SsMiddleware{startTimeUnix: time.Now().Unix(), totalAccesses: 0, totalBytes: 0, busyWorkers: 0, mutex: new(sync.Mutex)}
+func NewMiddleware(path string) *SsMiddleware {
+	return &SsMiddleware{startTimeUnix: time.Now().Unix(), totalAccesses: 0, totalBytes: 0, busyWorkers: 0, mutex: new(sync.Mutex), path: path}
 }
 
 func (s *SsMiddleware) HandleServerStatus(w http.ResponseWriter, req *http.Request) {
@@ -62,7 +63,7 @@ func (s *SsMiddleware) ServeHTTP(w http.ResponseWriter, req *http.Request, next 
 	s.mutex.Unlock()
 
 	// Trap request when it is (GET|HEAD) /server-status
-	if req.URL.Path == "/server-status" && (req.Method == "GET" || req.Method == "HEAD") {
+	if req.URL.Path == s.path && (req.Method == "GET" || req.Method == "HEAD") {
 		s.HandleServerStatus(w, req)
 	} else {
 		next(w, req)

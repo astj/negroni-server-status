@@ -17,7 +17,7 @@ func main() {
 
 	n := negroni.New()
 
-	n.Use(nss.NewMiddleware())
+	n.Use(nss.NewMiddleware("/server-status"))
 
 	n.UseHandler(mux)
 
