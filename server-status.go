@@ -48,7 +48,7 @@ func (s *SsMiddleware) HandleServerStatus(w http.ResponseWriter, req *http.Reque
 		TotalAccesses: fmt.Sprintf("%d", s.totalAccesses),
 		TotalKbytes:   fmt.Sprintf("%d", s.totalBytes/1024),
 		BusyWorkers:   fmt.Sprintf("%d", s.busyWorkers),
-		IdleWorkers:   "0", // XXX it's infinity!
+		IdleWorkers:   "", // XXX it's infinity!
 		Stats:         make([]ssRequestJsonResponse, 0),
 	}
 	res, _ := json.Marshal(stats)
