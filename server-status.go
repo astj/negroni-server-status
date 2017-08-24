@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
-	"strings"
 	"sync"
 	"time"
 
@@ -43,22 +42,17 @@ func NewMiddleware() *SsMiddleware {
 }
 
 func (s *SsMiddleware) HandleServerStatus(w http.ResponseWriter, req *http.Request) {
-	if strings.Contains(req.URL.RawQuery, "json") {
-		stats := ssJsonResponse{
-			Uptime:        fmt.Sprintf("%d", time.Now().Unix()-s.startTimeUnix),
-			TotalAccesses: fmt.Sprintf("%d", s.totalAccesses),
-			TotalKbytes:   fmt.Sprintf("%d", s.totalBytes/1024),
-			BusyWorkers:   fmt.Sprintf("%d", s.busyWorkers),
-			IdleWorkers:   "0", // XXX it's infinity!
-			Stats:         make([]ssRequestJsonResponse, 0),
-		}
-		res, _ := json.Marshal(stats)
-		w.Header().Set("Content-Type", "application/json")
-		w.Write(res)
-	} else {
-		w.Header().Set("Content-Type", "text/plain")
-		w.Write([]byte("this is from middleware"))
+	stats := ssJsonResponse{
+		Uptime:        fmt.Sprintf("%d", time.Now().Unix()-s.startTimeUnix),
+		TotalAccesses: fmt.Sprintf("%d", s.totalAccesses),
+		TotalKbytes:   fmt.Sprintf("%d", s.totalBytes/1024),
+		BusyWorkers:   fmt.Sprintf("%d", s.busyWorkers),
+		IdleWorkers:   "0", // XXX it's infinity!
+		Stats:         make([]ssRequestJsonResponse, 0),
 	}
+	res, _ := json.Marshal(stats)
+	w.Header().Set("Content-Type", "application/json")
+	w.Write(res)
 }
 
 // ServeHTTP implements negroni.Handler interface
