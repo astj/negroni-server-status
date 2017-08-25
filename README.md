@@ -9,8 +9,9 @@ Comparing to original `Plack::Middleware::ServerStatus::Lite`, this middleware h
   - `net/http` server does not limit total numbers of workers, so this field is meaningless
 - Always returns response in JSON formats
 - Response does not contain individual processing requests (`stats` field)
+- Access Restriction is not implemented
 
-The lattar two are not implemented because I don't need them currently, but patches are welcome.
+The lattar three are not implemented because I don't need them currently, but patches are welcome.
 
 ## Usage
 
