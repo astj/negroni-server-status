@@ -1,4 +1,4 @@
-module github.com/astj/negroni-server-status
+module github.com/astj/negroni-server-status/v2
 
 go 1.15
 
