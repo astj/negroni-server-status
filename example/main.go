@@ -5,7 +5,7 @@ import (
 	"net/http"
 
 	nss "github.com/astj/negroni-server-status"
-	"github.com/urfave/negroni"
+	"github.com/urfave/negroni/v2"
 )
 
 func main() {

@@ -7,7 +7,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/urfave/negroni"
+	"github.com/urfave/negroni/v2"
 )
 
 type SsRequest struct {
