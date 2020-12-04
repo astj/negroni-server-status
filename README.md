@@ -2,6 +2,10 @@
 
 A [negroni](https://github.com/urfave/negroni) middleware to monitor HTTP request stats like [`Plack::Middleware::ServerStatus::Lite`](https://metacpan.org/pod/Plack::Middleware::ServerStatus::Lite)
 
+## deprecation notice
+
+Currently I don't use this middleware anymore. It may still work, but may not anymore.
+
 ## Current Limitations
 
 Comparing to original `Plack::Middleware::ServerStatus::Lite`, this middleware has following limitations.
@@ -62,3 +66,7 @@ In this case, a response from `http://localhost:3000/server-status` is somewhat 
 ## License
 
 MIT
+
+## Author
+
+@astj (Asato Wakisaka)
